@@ -2,12 +2,39 @@
 
 > 推背图是中华预言第一图，藏往知来、推演未来。本项目借其名，以 three.js 推演进程走向、预测未来图景，把时间轴上的事件织成可观测的立体长卷。
 
-基于 three.js 的 3D 关系演示系统，以西游记全景为样本，深挖事件脉络、推演进程走向、预测未来图景，让复杂关系立体可见。
+基于 three.js 的 3D 关系演示系统家族中的**时间 / 演进**视角：以西游记进程为样本，沿时间轴播放事件、推演分支、预测未来。
+
+## 定位：时间 / 演进（看变化）
+
+本系统独立功能：
+
+- **时间轴 scrub + 播放**：按八十一难顺序回放事件进程。
+- **状态演进动画**：节点 / 边随时间出现、消失、变化。
+- **推演沙盘**：给定当前状态按规则外推下一步，展示分支树。
+- **未来预测**：趋势 / 概率外推，附置信度。
+- **双时间点快照 diff**：对比两个时刻的状态差异。
+
+数据切面：`events` 的时间戳 / 状态序列 / 转移规则。
+明确不做：球面全景总览（归 [浑天仪](https://github.com/huntian2028/huntianyi)）、静态关系深挖（归 [因陀罗网](https://github.com/huntian2028/indranet)）。
+
+## 家族架构：薄核心 + 三独立应用
+
+三套系统各占一个正交维度，共用一个薄核心，功能互不重叠：
+
+| 系统 | 维度 | 定位 |
+|---|---|---|
+| [浑天仪 Huntianyi](https://github.com/huntian2028/huntianyi) | 空间 / 结构 | 看全局 |
+| [因陀罗网 IndraNet](https://github.com/huntian2028/indranet) | 关系 / 因果 | 看联系 |
+| **推背图 TuiBeitu** | 时间 / 演进 | 看变化 |
+
+- **relation-core（薄核心，独立包）**：只含渲染 bootstrap（scene / camera / controls / 渲染循环 / 拾取）、数据 schema 与校验、数据加载器；**不含任何业务布局与功能**。
+- 依赖单向：app → core；app 之间不互相 import。
+- 统一数据 schema：`nodes`（结构）/ `edges`（关系）/ `events`（时间序列），各 app 只消费自己的切面。
 
 ## 相关项目
 
-- [浑天仪 Huntianyi](https://github.com/huntian2028/huntianyi)
-- [因陀罗网 IndraNet](https://github.com/huntian2028/indranet)
+- [浑天仪 Huntianyi](https://github.com/huntian2028/huntianyi) — 空间 / 结构
+- [因陀罗网 IndraNet](https://github.com/huntian2028/indranet) — 关系 / 因果
 
 ## 许可证
 
